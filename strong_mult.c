@@ -27,7 +27,6 @@ void normalize(int coef[], int size, int base) {
     }
 }
 
-
 // сложение двух массивов
 // -------------------------------------------
 void get_coef(const int value1[], const int value2[], int coef[], int size) {
