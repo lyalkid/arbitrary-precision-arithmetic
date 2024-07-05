@@ -8,12 +8,11 @@ void init_array(int a[], int n) {
     }
 }
 
-//сложение двух массивов
+// нормализация массива с коэффициентами
 // -------------------------------------------
-void normalize(int coef[], int size) {
+void normalize(int coef[], int size, int base) {
     int carry = 0;      // сколько данных перешло в след разряд
     int remainder = 0;  // остаток
-    int base = 2;       // двоичная система счисления
     int i;
     for (i = 0; i < size; i++) {
         int a = coef[i];
@@ -40,14 +39,14 @@ void get_coef(const int value1[], const int value2[], int coef[], int size) {
 // -------------------------------------------
 
 // умножение большого числа на маленькое
+// массив, число, результат, размер массива, основание системы
 // -------------------------------------------
 void simple_multiply(int a[], int b, int result[],
-                     int size_a) {  // size - размер числа a  , b - число : example a = 05678 , b = 3,
-                                    // result = 00000, size = 5
+                     int size_a, int base ) {  // size - размер числа a  , b - число : example a = 05678 , b = 3,
+                                    // result = 00000, size = 5, base -  основание системы счисления
     init_array(result, size_a);  // заполняем нулями массив result
     int carry = 0;  // нужно для хранения количества перехода в другой разряд
     int i = 0;      // индекс
-    int base = 10;  // основание системы счисления
     while (i < size_a) {
         int mult = a[i] * b + carry;
         int remainder = mult % base;  // остаток
@@ -75,7 +74,9 @@ int get_real_len_of_number(int a[], int size) {
 
 // умножение большого числа на большое
 // -------------------------------------------
-void multiply(int a[], int b[], int result[], int size) {  // size = 128 все три массива размера size
+void multiply(int a[], int b[], int result[], int size) { 
+    int base = 10;
+     // size = 128 все три массива размера size
     int simple_mult[size];  // массив для промежуточных произведений
     init_array(simple_mult, size);
     int n = size, m = size;
@@ -83,7 +84,7 @@ void multiply(int a[], int b[], int result[], int size) {  // size = 128 все 
     int current_index = 0;
 
     for (int i = 0; i < m; i++) {
-        simple_multiply(a, b[i], simple_mult, size);
+        simple_multiply(a, b[i], simple_mult, size, base);
         current_index = i;
         int k = 0;
         int end_current_index = current_index + get_real_len_of_number(simple_mult, size);
@@ -91,21 +92,22 @@ void multiply(int a[], int b[], int result[], int size) {  // size = 128 все 
             result[j] += simple_mult[k];
             k++;
         }
+        normalize(result, size, base);
     }
 }
 
 // -------------------------------------------
 
 int main() {
-    int size = 5;
-    int a[] = {2, 1, 0, 0, 0};
-    int b[] = {2, 1, 0, 0, 0};
-    int mult[] = {0, 0, 0, 0, 0};
+    int size = 10;
+    int a[] = {8, 7, 6, 5, 0, 0, 0, 0, 0, 0};
+    int b[] = {1, 4, 3, 0, 0, 0, 0, 0, 0, 0};
+    int mult[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     // simple_multiply(a, b, mult, size);
     multiply(a, b, mult, size);
     int i;
     for (i = size - 1; i > 0; i--) {
-        printf("%d", mult[i]);
+        printf("%d ", mult[i]);
     }
     printf("%d\n", mult[i]);
 
