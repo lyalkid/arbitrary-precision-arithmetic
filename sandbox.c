@@ -41,10 +41,10 @@ void get_coef(const int value1[], const int value2[], int coef[], int size) {
 
 // умножение большого числа на маленькое
 // -------------------------------------------
-void simple_multiply(int a[], int b, int result[], int size_a,
-                     int size_result) {  // size - размер числа a  , b - число : example a = 05678 , b = 3,
-                                         // result = 00000, size = 5
-    init_array(result, size_result);  // заполняем нулями массив result
+void simple_multiply(int a[], int b, int result[],
+                     int size_a) {  // size - размер числа a  , b - число : example a = 05678 , b = 3,
+                                    // result = 00000, size = 5
+    init_array(result, size_a);  // заполняем нулями массив result
     int carry = 0;  // нужно для хранения количества перехода в другой разряд
     int i = 0;      // индекс
     int base = 10;  // основание системы счисления
@@ -58,16 +58,56 @@ void simple_multiply(int a[], int b, int result[], int size_a,
 }
 // -------------------------------------------
 
+int get_real_len_of_number(int a[], int size) {
+    int i = 0;
+    int len = 0;
+    int count = 0;
+    for (i = size - 1; i >= 0; i--) {
+        if (a[i] == 0) {
+            count++;
+        } else {
+            break;
+        }
+    }
+
+    return size - count;
+}
+
+// умножение большого числа на большое
+// -------------------------------------------
+void multiply(int a[], int b[], int result[], int size) {  // size = 128 все три массива размера size
+    int simple_mult[size];  // массив для промежуточных произведений
+    init_array(simple_mult, size);
+    int n = size, m = size;
+
+    int current_index = 0;
+
+    for (int i = 0; i < m; i++) {
+        simple_multiply(a, b[i], simple_mult, size);
+        current_index = i;
+        int k = 0;
+        int end_current_index = current_index + get_real_len_of_number(simple_mult, size);
+        for (int j = current_index; j < end_current_index; j++) {
+            result[j] += simple_mult[k];
+            k++;
+        }
+    }
+}
+
+// -------------------------------------------
+
 int main() {
     int size = 5;
-    int a[] = {8, 7, 6, 5, 0};
-    int b = 3;
+    int a[] = {2, 1, 0, 0, 0};
+    int b[] = {2, 1, 0, 0, 0};
     int mult[] = {0, 0, 0, 0, 0};
-    simple_multiply(a, b, mult, size, size);
-
+    // simple_multiply(a, b, mult, size);
+    multiply(a, b, mult, size);
     int i;
     for (i = size - 1; i > 0; i--) {
         printf("%d", mult[i]);
     }
     printf("%d\n", mult[i]);
+
+    printf("length = %d\n", get_real_len_of_number(mult, size));
 }
