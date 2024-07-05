@@ -1,6 +1,6 @@
-#include "sandbox.h"
-
 #include <stdio.h>
+
+#include "sandbox.h"
 
 void init_array(int a[], int n) {
     for (int i = 0; i < n; i++) {
