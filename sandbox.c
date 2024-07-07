@@ -100,49 +100,82 @@ void multiply(int a[], int b[], int result[], int size) {
 
 // -------------------------------------------
 
-// базовый функционал для разности
+// Печать числа в привычном виде
 // -------------------------------------------
-void get_diff(int a[], int b[], int result[], int size) {
-    // // a - большее число по модулю, b  то что вычитаем, result , size - размер массивов, base -  основание
-    // системы счисления.
-    int base = 10;
-    int len_a = get_real_len_of_number(a, size);
-    int len_b = get_real_len_of_number(b, size);
-    int carry = 0;
-    for (size_t i = 0; i < len_b || carry; ++i) {
-        a[i] -= carry + (i < len_b ? b[i] : 0);
-        carry = a[i] < 0;
-        if (carry) a[i] += base;
-    }
-}
-
-// -------------------------------------------
-
 void output_digit(int a[], int size_a) {
     int size = get_real_len_of_number(a, size_a);
     int i;
-    for (i = size - 1; i > 0; i--) {
-        printf("%d", a[i]);
+    if (!size) {
+       
+        printf("%d\n", 0);
+    } else {
+        for (i = size - 1; i > 0; i--) {
+            printf("%d", a[i]);
+        }
+
+        // for (i = 0; i < size; i++) {
+        //     printf("%d", a[i]);
+        // }
+        printf("%d\n", a[i]);
     }
-    printf("%d\n", a[i]);
 }
+// -------------------------------------------
+
+// разница
+// -------------------------------------------
+void take_a_rank(int a[], int index, int base, int size_a) {
+    a[index] = a[index] + base;
+    for (int i = index + 1; i < size_a; i++) {
+        int get_digit = a[i];
+        if (!get_digit) {
+            a[i] = a[i] + (base - 1);
+            continue;
+        } else {
+            a[i] -= 1;
+            break;
+        }
+    }
+}
+void get_diff(int a[], int b[], int result[], int size, int base) {  // a больше чем b
+    int len_b = get_real_len_of_number(b, size);
+    int len_a = get_real_len_of_number(a, size);
+    init_array(result, size);
+    output_digit(a, size);
+    output_digit(b, size);
+    output_digit(result, size);
+
+    for (int i = 0; i < len_a; i++) {
+        if (a[i] < b[i]) {
+            take_a_rank(a, i, base, len_a);
+            printf("\n\nafter take a rank\n");
+            output_digit(a, size);
+            output_digit(b, size);
+        }
+        result[i] = a[i] - b[i];
+    }
+    printf("\n\n after end\n");
+    output_digit(a, size);
+    output_digit(b, size);
+    printf("\n\n\n");
+}
+
+// занимаем у старших
+
+// -------------------------------------------
 
 int main() {
     int size = 10;
-    int a[] = {8, 7, 6, 5, 0, 0, 0, 0, 0, 0};
-    int b[] = {1, 4, 3, 0, 0, 0, 0, 0, 0, 0};
-    int mult[size];
-    init_array(mult, size);
+    int a[] = {5, 2, 0, 0, 0, 0, 0, 0, 0, 0};
+    int b[] = {9, 1, 0, 0, 0, 0, 0, 0, 0, 0};
     int diff[size];
-    init_array(mult, size);
-    // simple_multiply(a, b, mult, size);
-    get_diff(a, b, mult, size);
-    int i;
+
+    get_diff(a, b, diff, size, 10);
+
     output_digit(a, size);
-    printf("%c\n", '*');
+    printf("%c\n", '-');
     output_digit(b, size);
     printf("%c\n", '=');
-    output_digit(mult, size);
+    output_digit(diff, size);
 
     // printf("length = %d\n", get_real_len_of_number(mult, size));
 }
