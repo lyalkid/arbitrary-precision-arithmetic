@@ -106,7 +106,6 @@ void output_digit(int a[], int size_a) {
     int size = get_real_len_of_number(a, size_a);
     int i;
     if (!size) {
-       
         printf("%d\n", 0);
     } else {
         for (i = size - 1; i > 0; i--) {
