@@ -1,6 +1,8 @@
 #ifndef S21_DECIMAL_UTILS_H
 #define S21_DECIMAL_UTILS_H
 
+#include "s21_decimal.h"
+
 #include <stdlib.h>
 
 #define DEC_ARRAY 512

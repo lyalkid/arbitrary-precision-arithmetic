@@ -1,4 +1,3 @@
-#include "s21_decimal.h"
 #include "s21_decimal_utils.h"
 
 // size = DEC_ARRAY

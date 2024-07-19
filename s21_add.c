@@ -33,17 +33,6 @@ int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
     }
 }
 
-void normalize_scale(int* scale1, int* scale2) {
-    int max_scale = *scale1 > *scale2 ? *scale1 : *scale2;
-    if (*scale1 == max_scale) {
-        *scale2 = *scale1 - *scale2;
-        *scale1 = 0;
-    }
-    else if(*scale2 == max_scale){
-       *scale1 = *scale2 - *scale1;
-        *scale2 = 0;
-    }
-}
 
 
 /*

@@ -1,5 +1,5 @@
-#ifndef S21_DECIMAL_H
-#define S21_DECIMAL_H
+#ifndef S21_DECIMAL_H_
+#define S21_DECIMAL_H_
 
 
 typedef struct {
@@ -9,4 +9,4 @@ typedef struct {
 
 
 
-#endif // S21_DECIMAL_H
+#endif // S21_DECIMAL_H_
