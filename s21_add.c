@@ -39,6 +39,10 @@ int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
 
     if(sum_of_signs != 1){
         get_add(mantissa1, mantissa2, result_value, DEC_ARRAY);
+
+        // overflow
+        // to decimal
+        // return OK
     }
    
 

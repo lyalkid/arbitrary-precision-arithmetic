@@ -73,6 +73,12 @@ build CMakeFiles/depimal.dir/s21_normalize_scale.c.o: C_COMPILER__depimal_unscan
   OBJECT_DIR = CMakeFiles/depimal.dir
   OBJECT_FILE_DIR = CMakeFiles/depimal.dir
 
+build CMakeFiles/depimal.dir/arithmetic_helpers.c.o: C_COMPILER__depimal_unscanned_Debug /Users/sionapae/CLionProjects/depimal/arithmetic_helpers.c || cmake_object_order_depends_target_depimal
+  DEP_FILE = CMakeFiles/depimal.dir/arithmetic_helpers.c.o.d
+  FLAGS = -g -std=gnu11 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/depimal.dir
+  OBJECT_FILE_DIR = CMakeFiles/depimal.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target depimal
@@ -81,7 +87,7 @@ build CMakeFiles/depimal.dir/s21_normalize_scale.c.o: C_COMPILER__depimal_unscan
 #############################################
 # Link the executable depimal
 
-build depimal: C_EXECUTABLE_LINKER__depimal_Debug CMakeFiles/depimal.dir/main.c.o CMakeFiles/depimal.dir/s21_add.c.o CMakeFiles/depimal.dir/s21_decimal_utils.c.o CMakeFiles/depimal.dir/s21_normalize_scale.c.o
+build depimal: C_EXECUTABLE_LINKER__depimal_Debug CMakeFiles/depimal.dir/main.c.o CMakeFiles/depimal.dir/s21_add.c.o CMakeFiles/depimal.dir/s21_decimal_utils.c.o CMakeFiles/depimal.dir/s21_normalize_scale.c.o CMakeFiles/depimal.dir/arithmetic_helpers.c.o
   FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk
   OBJECT_DIR = CMakeFiles/depimal.dir
   POST_BUILD = :
