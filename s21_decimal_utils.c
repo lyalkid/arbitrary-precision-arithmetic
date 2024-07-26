@@ -11,26 +11,6 @@ void from_decimal_to_array(s21_decimal decimal, int array[], int size) {
 void array_to_decimal(){}
 
 
-void init_array(int array[], int size) {
-    for (int i = 0; i < size; i++) {
-        array[i] = 0;
-    }
-}
-
-int get_real_len_of_number(int a[], int size) {
-    int i = 0;
-    int len = 0;
-    int count = 0;
-    for (i = size - 1; i >= 0; i--) {
-        if (a[i] == 0) {
-            count++;
-        } else {
-            break;
-        }
-    }
-
-    return size - count;
-}
 
 
 int get_bit(s21_decimal decimal, int index) {
