@@ -1,0 +1,3 @@
+/Users/sionapae/CLionProjects/depimal/cmake-build-debug/CMakeFiles/depimal.dir
+/Users/sionapae/CLionProjects/depimal/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/sionapae/CLionProjects/depimal/cmake-build-debug/CMakeFiles/rebuild_cache.dir

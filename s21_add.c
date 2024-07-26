@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include "s21_add.h"
+#include "arithmetic_helpers.h"
 
 // TODO сделать с нормализацией
 /*
@@ -14,62 +15,36 @@
  ЭТО НЕ ДОДЕЛАНО
  */
 int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
-    int sign1 = get_sign(value_1), sign2 = get_sign(value_2);
+    int result_code = OK;
+    //получаем знаки
+    int sign1 = get_sign(value_1); 
+    int sign2 = get_sign(value_2);
     
-    int scale1 = get_scale(value_1), scale2 = get_scale(value_2);
+    int scale1 = get_scale(value_1);
+    int scale2 = get_scale(value_2);
     
-    normalize_scale(&scale1, &scale2);
+    // normalize_scale(&scale1, &scale2);
     
-    int mantissa1[DEC_ARRAY] = {};
+    int mantissa1[DEC_ARRAY] = {};  // инициализация пустого массива , заполненного нулями
     int mantissa2[DEC_ARRAY] = {};
-    int mantissa3[DEC_ARRAY];
-    init_array(mantissa3, DEC_ARRAY);
+    int result_value[DEC_ARRAY] = {};
+    init_array(result_value, DEC_ARRAY);
     
-    from_decimal_to_array(value_1, mantissa1);
-    from_decimal_to_array(value_2, mantissa2);
+    from_decimal_to_array(value_1, mantissa1, DEC_ARRAY );
+    from_decimal_to_array(value_2, mantissa2, DEC_ARRAY);
+    
+    int sum_of_signs = get_sign(value_1) + get_sign(value_2); // если 0 или 2 , то делаем сложение, а потом ставим знак, если 1, то 
 
-    if (sign1 == sign2) {
-        get_add(mantissa1, mantissa2, mantissa3, DEC_ARRAY, 2);  // сложение двух массивов столбиком
+    // нормализация
+
+    if(sum_of_signs != 1){
+        get_add(mantissa1, mantissa2, result_value, DEC_ARRAY);
     }
-}
+   
 
 
 
-/*
-    скалдывает два числа, которые представлены в виде массива
-*/
-void get_add(const int value1[], const int value2[], int coef[], int size, int base) {
-    for (int i = 0; i < size; i++) {
-            coef[i] = value1[i] + value2[i];
-    }
-    add_normalize(coef, size, base);
-}
 
-/* 
-    функция получает набор (массив) коэффициентов и нормализует их в соотвествии с выбранной 
-    системой счисления. Например, сложили два числа 52 + 48, получили 100.
-    Как это выглядит в виде массива: 
-    [2, 5, 0]
-    +
-    [8, 4, 0]
-    =
-    [10, 9]
-    после нормализации:
-    [0, 0, 1]
-*/
-void add_normalize(int coef[], int size, int base) {
-    int carry = 0;      // сколько данных перешло в след разряд
-    int remainder = 0;  // остаток
-    int i;
-    for (i = 0; i < size; i++) {
-        int a = coef[i];
-        a += carry;
-        carry = a / base;
-        a %= base;
-        coef[i] = a;
-    }
-    while (carry > 0) {
-        coef[i++] = carry % base;
-        carry /= base;
-    }
+
+    return result_code;
 }

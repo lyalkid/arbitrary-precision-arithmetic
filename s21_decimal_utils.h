@@ -5,10 +5,8 @@
 
 #include <stdlib.h>
 
-#define DEC_ARRAY 512
-
 // Function prototypes
-void from_decimal_to_array(s21_decimal decimal, int array[]);
+void from_decimal_to_array(s21_decimal decimal, int array[], int size);
 
 void init_array(int array[], int size);
 

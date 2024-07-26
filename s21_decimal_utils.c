@@ -1,18 +1,37 @@
 #include "s21_decimal_utils.h"
 
 // size = DEC_ARRAY
-void from_decimal_to_array(s21_decimal decimal, int array[]) {
-    init_array(array, DEC_ARRAY);
-    for (int i = 0; i < 128; i++) {
+void from_decimal_to_array(s21_decimal decimal, int array[], int size) {
+    init_array(array, size);
+    for (int i = 0; i < 96; i++) {
         array[i] = get_bit(decimal, i);
     }
 }
+
+void array_to_decimal(){}
+
 
 void init_array(int array[], int size) {
     for (int i = 0; i < size; i++) {
         array[i] = 0;
     }
 }
+
+int get_real_len_of_number(int a[], int size) {
+    int i = 0;
+    int len = 0;
+    int count = 0;
+    for (i = size - 1; i >= 0; i--) {
+        if (a[i] == 0) {
+            count++;
+        } else {
+            break;
+        }
+    }
+
+    return size - count;
+}
+
 
 int get_bit(s21_decimal decimal, int index) {
     int flag = 0;
@@ -85,7 +104,7 @@ void set_scale(s21_decimal* decimal, int scale) {  // scale от 0 до 28, bit[
 
 int get_sign(s21_decimal value) {
     int index = 127;
-    return check_bit(value, index);
+    return get_bit(value, index);
 }
 
 void set_sign(s21_decimal* decimal, int sign) {

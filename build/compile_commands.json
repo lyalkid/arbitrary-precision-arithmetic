@@ -1,0 +1,26 @@
+[
+{
+  "directory": "/Users/sionapae/CLionProjects/depimal/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc   -g -std=gnu11 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -o CMakeFiles/depimal.dir/main.c.o -c /Users/sionapae/CLionProjects/depimal/main.c",
+  "file": "/Users/sionapae/CLionProjects/depimal/main.c",
+  "output": "CMakeFiles/depimal.dir/main.c.o"
+},
+{
+  "directory": "/Users/sionapae/CLionProjects/depimal/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc   -g -std=gnu11 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -o CMakeFiles/depimal.dir/s21_add.c.o -c /Users/sionapae/CLionProjects/depimal/s21_add.c",
+  "file": "/Users/sionapae/CLionProjects/depimal/s21_add.c",
+  "output": "CMakeFiles/depimal.dir/s21_add.c.o"
+},
+{
+  "directory": "/Users/sionapae/CLionProjects/depimal/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc   -g -std=gnu11 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -o CMakeFiles/depimal.dir/s21_decimal_utils.c.o -c /Users/sionapae/CLionProjects/depimal/s21_decimal_utils.c",
+  "file": "/Users/sionapae/CLionProjects/depimal/s21_decimal_utils.c",
+  "output": "CMakeFiles/depimal.dir/s21_decimal_utils.c.o"
+},
+{
+  "directory": "/Users/sionapae/CLionProjects/depimal/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc   -g -std=gnu11 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -o CMakeFiles/depimal.dir/s21_normalize_scale.c.o -c /Users/sionapae/CLionProjects/depimal/s21_normalize_scale.c",
+  "file": "/Users/sionapae/CLionProjects/depimal/s21_normalize_scale.c",
+  "output": "CMakeFiles/depimal.dir/s21_normalize_scale.c.o"
+}
+]
