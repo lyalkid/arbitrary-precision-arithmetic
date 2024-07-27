@@ -1,6 +1,6 @@
 #include <stdlib.h>
-#include "s21_add.h"
-#include "arithmetic_helpers.h"
+#include "inc/s21_add.h"
+#include "inc/arithmetic_helpers.h"
 
 // TODO сделать с нормализацией
 /*

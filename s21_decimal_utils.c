@@ -1,4 +1,4 @@
-#include "s21_decimal_utils.h"
+#include "inc/s21_decimal_utils.h"
 
 // size = DEC_ARRAY
 void from_decimal_to_array(s21_decimal decimal, int array[], int size) {

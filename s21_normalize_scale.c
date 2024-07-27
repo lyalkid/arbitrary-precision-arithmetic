@@ -1,6 +1,6 @@
-#include "s21_decimal.h"
-#include "s21_normalize_scale.h"
-#include "s21_decimal_utils.h"
+#include "inc/s21_decimal.h"
+#include "inc/s21_normalize_scale.h"
+#include "inc/s21_decimal_utils.h"
 
 void normalization(s21_decimal decimal_1, s21_decimal decimal_2){
     int scale1 = get_scale(decimal_1), scale2 = get_scale(decimal_2);

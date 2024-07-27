@@ -1,5 +1,5 @@
-#include "s21_add.h"
-#include "s21_decimal.h"
+#include "inc/s21_add.h"
+#include "inc/s21_decimal.h"
 #include <stdio.h>
 
 int main (){
