@@ -1,1 +1,0 @@
-/usr/bin/cc -g CMakeFiles/depimal.dir/main.c.o CMakeFiles/depimal.dir/s21_add.c.o CMakeFiles/depimal.dir/s21_decimal_utils.c.o CMakeFiles/depimal.dir/s21_normalize_scale.c.o CMakeFiles/depimal.dir/arithmetic_helpers.c.o -o depimal 

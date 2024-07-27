@@ -8,10 +8,7 @@ void from_decimal_to_array(s21_decimal decimal, int array[], int size) {
     }
 }
 
-void array_to_decimal(){}
-
-
-
+void array_to_decimal() {}
 
 int get_bit(s21_decimal decimal, int index) {
     int flag = 0;
