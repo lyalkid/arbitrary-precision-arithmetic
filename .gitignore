@@ -12,7 +12,7 @@ sandbox
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
-
+cmake-build-debug/
 tests/
 
 .idea/

@@ -1,3 +1,0 @@
-/home/lyalkid/code/arbitrary-precision-arithmetic/cmake-build-debug/CMakeFiles/depimal.dir
-/home/lyalkid/code/arbitrary-precision-arithmetic/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/lyalkid/code/arbitrary-precision-arithmetic/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -87,10 +87,16 @@ int get_real_len_of_number(int a[], int size) {
     return size - count;
 }
 
-// умножение большого числа на большое
-// -------------------------------------------
-void multiply(int a[], int b[], int result[], int size) {
-    int base = 10;
+
+/**
+ * 
+ * @param a первое число
+ * @param b второе число
+ * @param result результат
+ * @param size размер массивов
+ * @param base размер системы счисления
+ */
+void multiply(int a[], int b[], int result[], int size, int base) {
     // size = 128 все три массива размера size
     int simple_mult[size];  // массив для промежуточных произведений
     init_array(simple_mult, size);
@@ -124,6 +130,17 @@ void init_array_for_power(int a[], int n) {
     a[0] = 1;
 }
 
+// инициализирует число 10 в 2 сс в виде массива 01010..0000
+void init_ten_in_binary(int a[], int n) {
+    for (int i = 0; i < n; i++) {
+        if(i == 1 || i == 3) {
+            a[i] = 1;
+            continue;
+        }
+        a[i] = 0;
+    }
+}
+
 void print_binary(const unsigned int number) {
     int i;
     for (i = 31; i > 0; i--) {
@@ -133,6 +150,7 @@ void print_binary(const unsigned int number) {
 };
 
 void from_binary_to_10(int bin_arr[], int result[], int size_bin_arr, int size_res) {
+    init_array(result, size_res);
     int tmp[size_res];
     int two_power[size_res];
     for (int i = 0; i < size_bin_arr; i++) {
@@ -141,20 +159,28 @@ void from_binary_to_10(int bin_arr[], int result[], int size_bin_arr, int size_r
         two_power[0] = 1;
 
         if (bin_arr[i] == 1) {
-            my_power(two_power, size_res, i, 2);
+            my_power(two_power, size_res, i, 2, 10);
             get_add(result, two_power, size_res);
         }
     }
 }
 
-void my_power(int a[], int a_size, int exp, int digit) {
+/**
+ *
+ * @param a - число которое хранит в себе изначально 1, то есть [1, 0, 0, ..., 0], в нем будет записан результат;
+ * @param a_size - размер массива;
+ * @param exp - степень, в которую мы хотим умножить число;
+ * @param digit - само число в 10 сс;
+ * @param base - база системы счисления, в которой производить операцию и получить результат
+ */
+void my_power(int a[], int a_size, int exp, int digit, int base) {
     // int save_a[a_size];
     // copy_array(a, save_a, a_size);
     int tmp[a_size];
     while (exp != 0) {
         init_array(tmp, a_size);
         // multiply(a, save_a, tmp, a_size);
-        simple_multiply(a, digit, tmp, a_size, 10);
+        simple_multiply(a, digit, tmp, a_size, base);
         copy_array(tmp, a, a_size);
         exp--;
     }
@@ -168,26 +194,28 @@ void copy_array(int src[], int dest[], int size) {
     }
 }
 
-
 void output_array(int arr[], int size) {
     int i;
     int check;
-    for(i = 0; i < size - 1; i++) {
-        check = arr[i];
-        printf("%d", check );
-    }
-    check = arr[i];
-    printf("%d\n", arr[i]);
-};
-
-void output_reversed_array(int arr[], int size) {
-    int i;
-    int check;
-
-    for(i = size - 1; i > 0; i--) {
+    int len = get_real_len_of_number(arr, size);
+    for (i = 0; i < len - 1; i++) {
         check = arr[i];
         printf("%d", check);
     }
     check = arr[i];
-    printf("%d\n", arr[i]);
+    printf("%d\n", check);
 };
+
+void output_reversed_array(int arr[], int size) {
+    int i ;
+    int check;
+    int len = size;//get_real_len_of_number(arr, size);
+
+    for (i = (len != 0)*(len - 1); len != 0 && i > 0; i--) {
+        check = arr[i];
+        printf("%d", check);
+    }
+    check = arr[i];
+    printf("%d\n", check);
+};
+

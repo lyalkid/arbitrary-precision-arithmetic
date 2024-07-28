@@ -8,7 +8,7 @@
 
 // #define MINUS 0x80000000
 // #define SC 0x00ff0000
-#define DEC_ARRAY 224
+#define DEC_ARRAY 256
 
 
 /*

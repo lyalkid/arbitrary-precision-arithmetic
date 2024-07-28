@@ -10,7 +10,7 @@ void add_normalize(int coef[], int size, int base) ;
 void init_array(int a[], int n);
 
 void init_array_for_power(int a[], int n);
-
+void init_ten_in_binary(int a[], int n) ;
 
 void simple_multiply(int a[], int b, int result[], int size_a,
                      int base);
@@ -18,20 +18,16 @@ void simple_multiply(int a[], int b, int result[], int size_a,
 // получает размер вектора (массива) коэффициентов
 int get_real_len_of_number(int a[], int size);
 
-void multiply(int a[], int b[], int result[], int size);
+void multiply(int a[], int b[], int result[], int size, int base);
 
 void print_binary(const unsigned int number);
 
-void copy_array(int a[], int b[], int size) ;
 
+void copy_array(int src[], int dest[], int size) ;
 
-/**
- * a[] - массив в котором установлена единица для старта
- * a_size - размер массива
- * exp - степень, в которую нужно возвести
- * digit число которое мы возводим в степень
-*/
-void my_power(int a[], int a_size , int exp, int digit);
+void my_power(int a[], int a_size , int exp, int digit, int base);
+
+void power_ten_in_binary(int ten[], int ten_size, int exp);
 
 void from_binary_to_10(int bin_arr[], int result[], int size_bin_arr, int size_res);
 
