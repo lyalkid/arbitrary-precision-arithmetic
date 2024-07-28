@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 /*
-    скалдывает два числа, которые представлены в виде массива
+    скалдывает два числа, которые представлены в виде массива в 2 системе счисления
 */
 void get_add_binary(const int value1[], const int value2[], int coef[], int size) {
     int base = 2;
@@ -12,6 +12,9 @@ void get_add_binary(const int value1[], const int value2[], int coef[], int size
     add_normalize(coef, size, base);
 }
 
+/*
+    скалдывает два числа, которые представлены в виде массива в 10 системе счисления
+*/
 void get_add(int value1[], const int value2[], int size) {
     int base = 10;
     for (int i = 0; i < size; i++) {
@@ -19,7 +22,6 @@ void get_add(int value1[], const int value2[], int size) {
     }
     add_normalize(value1, size, base);
 }
-
 
 /* 
     функция получает набор (массив) коэффициентов и нормализует их в соотвествии с выбранной
@@ -29,7 +31,7 @@ void get_add(int value1[], const int value2[], int size) {
     +
     [8, 4, 0]
     =
-    [10, 9]
+    [10, 9, 0]
     после нормализации:
     [0, 0, 1]
 */
@@ -69,6 +71,7 @@ void simple_multiply(int a[], int b, int result[], int size_a,
 }
 // -------------------------------------------
 
+// получает длину числа без ведущих нулей
 int get_real_len_of_number(int a[], int size) {
     int i = 0;
     int len = 0;
@@ -114,51 +117,77 @@ void init_array(int a[], int n) {
     }
 }
 
+void init_array_for_power(int a[], int n) {
+    for (int i = 0; i < n; i++) {
+        a[i] = 0;
+    }
+    a[0] = 1;
+}
+
 void print_binary(const unsigned int number) {
     int i;
-    for(i = 31; i > 0; i--) {
+    for (i = 31; i > 0; i--) {
         printf("%d", (number >> i) & 1);
     }
-    printf("%d\n", (number>>i) & 1);
+    printf("%d\n", (number >> i) & 1);
 };
 
 void from_binary_to_10(int bin_arr[], int result[], int size_bin_arr, int size_res) {
     int tmp[size_res];
     int two_power[size_res];
-    for(int i = 0; i < size_bin_arr; i++) {
+    for (int i = 0; i < size_bin_arr; i++) {
         init_array(tmp, size_res);
         init_array(two_power, size_res);
         two_power[0] = 1;
 
-        if(bin_arr[i] == 1) {
+        if (bin_arr[i] == 1) {
             my_power(two_power, size_res, i, 2);
             get_add(result, two_power, size_res);
         }
     }
-
 }
 
-
-void my_power(int a[], int a_size , int exp, int digit) {
-    int save_a[a_size];
-    copy_array(a, save_a, a_size );
+void my_power(int a[], int a_size, int exp, int digit) {
+    // int save_a[a_size];
+    // copy_array(a, save_a, a_size);
     int tmp[a_size];
-    init_array(tmp, a_size);
     while (exp != 0) {
+        init_array(tmp, a_size);
         // multiply(a, save_a, tmp, a_size);
-        simple_multiply(a, 2, tmp, a_size, 10);
+        simple_multiply(a, digit, tmp, a_size, 10);
         copy_array(tmp, a, a_size);
         exp--;
     }
 }
 
-
 void copy_array(int src[], int dest[], int size) {
-
     int *pA = src;
     int *pB = dest;
     for (int i = 0; i < size; i++) {
         *(pB + i) = *(pA + i);
     }
-
 }
+
+
+void output_array(int arr[], int size) {
+    int i;
+    int check;
+    for(i = 0; i < size - 1; i++) {
+        check = arr[i];
+        printf("%d", check );
+    }
+    check = arr[i];
+    printf("%d\n", arr[i]);
+};
+
+void output_reversed_array(int arr[], int size) {
+    int i;
+    int check;
+
+    for(i = size - 1; i > 0; i--) {
+        check = arr[i];
+        printf("%d", check);
+    }
+    check = arr[i];
+    printf("%d\n", arr[i]);
+};
