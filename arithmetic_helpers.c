@@ -1,14 +1,25 @@
 #include "inc/arithmetic_helpers.h"
+
+#include <stdio.h>
 /*
     скалдывает два числа, которые представлены в виде массива
 */
-void get_add(const int value1[], const int value2[], int coef[], int size) {
+void get_add_binary(const int value1[], const int value2[], int coef[], int size) {
     int base = 2;
     for (int i = 0; i < size; i++) {
         coef[i] = value1[i] + value2[i];
     }
     add_normalize(coef, size, base);
 }
+
+void get_add(int value1[], const int value2[], int size) {
+    int base = 10;
+    for (int i = 0; i < size; i++) {
+        value1[i] = value1[i] + value2[i];
+    }
+    add_normalize(value1, size, base);
+}
+
 
 /* 
     функция получает набор (массив) коэффициентов и нормализует их в соотвествии с выбранной
@@ -101,4 +112,53 @@ void init_array(int a[], int n) {
     for (int i = 0; i < n; i++) {
         a[i] = 0;
     }
+}
+
+void print_binary(const unsigned int number) {
+    int i;
+    for(i = 31; i > 0; i--) {
+        printf("%d", (number >> i) & 1);
+    }
+    printf("%d\n", (number>>i) & 1);
+};
+
+void from_binary_to_10(int bin_arr[], int result[], int size_bin_arr, int size_res) {
+    int tmp[size_res];
+    int two_power[size_res];
+    for(int i = 0; i < size_bin_arr; i++) {
+        init_array(tmp, size_res);
+        init_array(two_power, size_res);
+        two_power[0] = 1;
+
+        if(bin_arr[i] == 1) {
+            my_power(two_power, size_res, i, 2);
+            get_add(result, two_power, size_res);
+        }
+    }
+
+}
+
+
+void my_power(int a[], int a_size , int exp, int digit) {
+    int save_a[a_size];
+    copy_array(a, save_a, a_size );
+    int tmp[a_size];
+    init_array(tmp, a_size);
+    while (exp != 0) {
+        // multiply(a, save_a, tmp, a_size);
+        simple_multiply(a, 2, tmp, a_size, 10);
+        copy_array(tmp, a, a_size);
+        exp--;
+    }
+}
+
+
+void copy_array(int src[], int dest[], int size) {
+
+    int *pA = src;
+    int *pB = dest;
+    for (int i = 0; i < size; i++) {
+        *(pB + i) = *(pA + i);
+    }
+
 }

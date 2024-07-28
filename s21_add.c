@@ -22,7 +22,7 @@ int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
     int scale1 = get_scale(value_1);
     int scale2 = get_scale(value_2);
 
-    // normalize_scale(&scale1, &scale2);
+    normalize_scale(&scale1, &scale2);
 
     int mantissa1[DEC_ARRAY] = {};  // инициализация пустого массива , заполненного нулями
     int mantissa2[DEC_ARRAY] = {};
@@ -32,14 +32,12 @@ int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
     from_decimal_to_array(value_1, mantissa1, DEC_ARRAY);
     from_decimal_to_array(value_2, mantissa2, DEC_ARRAY);
 
-    int sum_of_signs =
-        get_sign(value_1) +
-        get_sign(value_2);  // если 0 или 2 , то делаем сложение, а потом ставим знак, если 1, то
+    int sum_of_signs = get_sign(value_1) + get_sign(value_2);  // если 0 или 2 , то делаем сложение, а потом ставим знак, если 1, то
 
     // нормализация
 
     if (sum_of_signs != 1) {
-        get_add(mantissa1, mantissa2, result_value, DEC_ARRAY);
+        get_add_binary(mantissa1, mantissa2, result_value, DEC_ARRAY);
 
         // overflow
         // to decimal

@@ -29,8 +29,5 @@ enum sign {PLUS, MINUS};
 // Function prototypes
 int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal* result);
 
-void get_add(const int value1[], const int value2[], int coef[], int size);
-
-void add_normalize(int coef[], int size, int base);
 
 #endif // S21_DECIMAL_H
