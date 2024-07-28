@@ -14,7 +14,7 @@ sandbox
 *.userprefs
 cmake-build-debug/
 tests/
-
+build/
 .idea/
 .vscode/
 *.dSYM
