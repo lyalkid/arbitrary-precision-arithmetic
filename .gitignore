@@ -17,6 +17,7 @@ tests/
 build/
 .idea/
 .vscode/
+.DS_Store
 *.dSYM
 
 # Mono auto generated files
