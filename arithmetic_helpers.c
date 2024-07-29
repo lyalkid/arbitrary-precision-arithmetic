@@ -209,7 +209,7 @@ void output_array(int arr[], int size) {
 void output_reversed_array(int arr[], int size) {
     int i ;
     int check;
-    int len = size;//get_real_len_of_number(arr, size);
+    int len = get_real_len_of_number(arr, size);
 
     for (i = (len != 0)*(len - 1); len != 0 && i > 0; i--) {
         check = arr[i];

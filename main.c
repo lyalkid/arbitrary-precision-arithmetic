@@ -21,10 +21,18 @@ int main() {
     //
     int ten[size];
     init_array_for_power(ten, size);
+    int one[size];
+    init_array_for_power(one, size);
 
-    my_power(ten, size, 28, 10, 2);
+    int res[size];
+    init_array(res, size);
+
+    my_power(ten, size, 28, 3, 10);
+    my_power(one, size, 28, 3, 10);
+
+    multiply(ten, one, res, size, 10);
 
     int len = get_real_len_of_number(ten, size);
-    output_array(ten, size);
-    output_reversed_array(ten, size);
+    output_array(res, size);
+    output_reversed_array(res, size);
 }
