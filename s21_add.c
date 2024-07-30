@@ -33,27 +33,8 @@ int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
 
     from_decimal_to_array(value_1, mantissa1, size);
     from_decimal_to_array(value_2, mantissa2, size);
-//---------
-    printf("mantissa1:\n");
-    output_reversed_array(mantissa1, size);
-
-//     printf("mantissa2:\n");
-//     output_reversed_array(mantissa2, size);
-//
-//
-// //---------
 
     normalize_arrays(mantissa1, mantissa2, size, &exp1, &exp2);
-    //---------
-    printf("mantissa1:\n");
-    output_reversed_array(mantissa1, size);
-
-
-    // printf("mantissa2:\n");
-    // output_reversed_array(mantissa2, size);
-    //
-    //
-    // //---------
 
     int sum_of_signs =
         get_sign(value_1) +
@@ -66,9 +47,7 @@ int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
         // to decimal
         // return OK
     }
-    int norm[size];
-    from_binary_to_10(result_value, norm, size, size );
-    //output_reversed_array(norm, size);
-    //output_reversed_array(result_value, size);
+
+
     return result_code;
 }

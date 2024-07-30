@@ -9,7 +9,12 @@ add_executable(depimal
         s21_decimal_utils.c
         s21_normalize_scale.c
         arithmetic_helpers.c
-#        arithmetic_test/100x_test_s21_add.c
+        s21_banking_round.c
+        s21_equalizers.c
+        my_equalizers.c
+        s21_is_decimal_correct.c
+        #        arithmetic_test/5x_test_s21_add.c
+        #        arithmetic_test/100x_test_s21_add.c
 #        arithmetic_test/5x_test_s21_add.c
 #        arithmetic_test/10x_test_s21_add.c
 #        arithmetic_test/30x_test_s21_add.c

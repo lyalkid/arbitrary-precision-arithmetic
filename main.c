@@ -4,35 +4,14 @@
 #include "inc/s21_add.h"
 #include "inc/s21_decimal.h"
 int main() {
-    // s21_decimal value1 = {{0b00000000000000000000000001011111, 0b00000000000000000000000000000000,
-    //                        0b00000000000000000000000000000000, (11 << 16)}};
-    // s21_decimal value2 = {{0b00000000000000000000000000000001, 0b00000000000000000000000000000000,
-    //                        0b00000000000000000000000000000000, (12 << 16)}};
-    //
-    // s21_decimal result = {};
-    //
-    // int res = s21_add(value1, value2, &result);
-     int size = 256; // при таком размере макс 2^255
-    // // int test[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
-    // // // init_array(test, size);
-    // // int result[size];
-    // // init_array(result, size);
-    // // from_binary_to_10(test, result, size, size);
-    //
-    int ten[size];
-    init_array_for_power(ten, size);
-    int one[size];
-    init_array_for_power(one, size);
+     s21_decimal value1 = {{0b00000000000000000000000001011111, 0b00000000000000000000000000000000,
+                            0b00000000000000000000000000000000, (11 << 16)}};
+     s21_decimal value2 = {{0b00000000000000000000000000000001, 0b00000000000000000000000000000000,
+                            0b00000000000000000000000000000000, (12 << 16)}};
 
-    int res[size];
-    init_array(res, size);
+     s21_decimal result = {};
 
-    my_power(ten, size, 28, 3, 10);
-    my_power(one, size, 28, 3, 10);
+     unsigned int res = s21_add(value1, value2, &result);
 
-    multiply(ten, one, res, size, 10);
 
-    int len = get_real_len_of_number(ten, size);
-    output_array(res, size);
-    output_reversed_array(res, size);
 }
