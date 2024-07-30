@@ -2,8 +2,11 @@
 #define S21_DECIMAL_UTILS_H
 
 #include "s21_decimal.h"
-
+#define CHECK_MINUS 0x80000000
+#define CHECK_SCALE 0x00ff0000
 #include <stdlib.h>
+
+enum status_code { FALSE, TRUE };
 
 // Function prototypes
 void from_decimal_to_array(s21_decimal decimal, int array[], int size);
@@ -24,4 +27,6 @@ void set_sign(s21_decimal* decimal, int sign);
 
 void decimal_to_big_decimal(s21_decimal decimal, s21_big_decimal* bigDecimal);
 
-#endif // S21_DECIMAL_UTILS_H
+int s21_is_decimal_correct(s21_decimal decimal);
+
+#endif  // S21_DECIMAL_UTILS_H

@@ -11,32 +11,36 @@ void from_decimal_to_array(s21_decimal decimal, int array[], int size) {
 void array_to_decimal() {}
 
 int get_bit(s21_decimal decimal, int index) {
-    int flag = 0;
-    int result = 0;
-    int size_of_int = 32;
+unsigned int mask = 1 << (index % 32);
+unsigned int t = 1;
+return decimal.bits[index / 32] & mask;
 
-    if (index < 0 || index > 127 || &decimal == NULL) {
-        flag = -1;
-    }
-
-    if (flag != -1) {
-        int part = 0;
-        if (index < 32) {
-        } else if (index < 64) {
-            ++part;
-        } else if (index < 96) {
-            part += 2;
-        } else {
-            part += 3;
-        }
-        index = index - size_of_int * part;
-        unsigned int mask = 1 << index;
-        result = decimal.bits[part] & mask ? 1 : 0;
-    } else {
-        result = flag;
-    }
-
-    return result;
+    //    int flag = 0;
+//    int result = 0;
+//    int size_of_int = 32;
+//
+//    if (index < 0 || index > 127 || &decimal == NULL) {
+//        flag = -1;
+//    }
+//
+//    if (flag != -1) {
+//        int part = 0;
+//        if (index < 32) {
+//        } else if (index < 64) {
+//            ++part;
+//        } else if (index < 96) {
+//            part += 2;
+//        } else {
+//            part += 3;
+//        }
+//        index = index - size_of_int * part;
+//        unsigned int mask = 1 << index;
+//        result = decimal.bits[part] & mask ? 1 : 0;
+//    } else {
+//        result = flag;
+//    }
+//
+//    return result;
 }
 
 int set_bit(s21_decimal* decimal, int index, int value) {
@@ -89,9 +93,8 @@ void set_sign(s21_decimal* decimal, int sign) {
     set_bit(decimal, index_sign, sign);
 }
 
-
-void decimal_to_big_decimal(s21_decimal decimal, s21_big_decimal* bigDecimal){
-    for(int i = 0; i < 8; i++) {
+void decimal_to_big_decimal(s21_decimal decimal, s21_big_decimal* bigDecimal) {
+    for (int i = 0; i < 8; i++) {
         if (i < 3) {
             bigDecimal->bits[i] = decimal.bits[i];
             continue;
@@ -101,5 +104,16 @@ void decimal_to_big_decimal(s21_decimal decimal, s21_big_decimal* bigDecimal){
             bigDecimal->bits[i] = 0;
         }
     }
+}
 
+int s21_is_decimal_correct(s21_decimal decimal) {
+    int status_code = TRUE;
+    for (int i = 64; i < 95; i++) {
+        int serve = get_bit(decimal, i);
+        if (((i >= 64 && i <= 79) || i >= 88 ) && serve == 1) {
+            status_code = FALSE;
+            break;
+        }
+    }
+    return status_code;
 }
