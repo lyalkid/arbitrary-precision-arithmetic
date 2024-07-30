@@ -22,4 +22,6 @@ int get_sign(s21_decimal value);
 
 void set_sign(s21_decimal* decimal, int sign);
 
+void decimal_to_big_decimal(s21_decimal decimal, s21_big_decimal* bigDecimal);
+
 #endif // S21_DECIMAL_UTILS_H

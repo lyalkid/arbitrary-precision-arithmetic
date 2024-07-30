@@ -88,3 +88,18 @@ void set_sign(s21_decimal* decimal, int sign) {
     int index_sign = 127;
     set_bit(decimal, index_sign, sign);
 }
+
+
+void decimal_to_big_decimal(s21_decimal decimal, s21_big_decimal* bigDecimal){
+    for(int i = 0; i < 8; i++) {
+        if (i < 3) {
+            bigDecimal->bits[i] = decimal.bits[i];
+            continue;
+        } else if (i == 3) {
+            bigDecimal->bits[7] = decimal.bits[i];
+        } else {
+            bigDecimal->bits[i] = 0;
+        }
+    }
+
+}
