@@ -1,4 +1,4 @@
-#include "inc/arithmetic_helpers.h"
+#include "../inc/arithmetic_helpers.h"
 
 #include <stdio.h>
 /*

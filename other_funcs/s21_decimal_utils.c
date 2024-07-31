@@ -1,6 +1,8 @@
-#include "inc/s21_decimal_utils.h"
+#include "../inc/s21_decimal_utils.h"
 
 // size = DEC_ARRAY
+
+// TODO  исправить дублирование кода
 void from_decimal_to_array(s21_decimal decimal, int array[], int size) {
     init_array(array, size);
     for (int i = 0; i < 96; i++) {
@@ -8,39 +10,48 @@ void from_decimal_to_array(s21_decimal decimal, int array[], int size) {
     }
 }
 
-void array_to_decimal() {}
+void from_big_decimal_to_array(s21_big_decimal bigDecimal, int array[], int size) {
+    init_array(array, size);
+    for (int i = 0; i < 224; i++) {
+        array[i] = get_bit_from_big_decimal(bigDecimal, i);
+    }
+}
+
+int get_bit_from_big_decimal(s21_big_decimal bigDecimal, int index){
+    unsigned int mask = 1u << (index % 32);
+    return (int)(bigDecimal.bits[index / 32] & mask);
+}
 
 int get_bit(s21_decimal decimal, int index) {
-unsigned int mask = 1 << (index % 32);
-unsigned int t = 1;
-return decimal.bits[index / 32] & mask;
+    unsigned int mask = 1u << (index % 32);
+    return (int)(decimal.bits[index / 32] & mask);
 
     //    int flag = 0;
-//    int result = 0;
-//    int size_of_int = 32;
-//
-//    if (index < 0 || index > 127 || &decimal == NULL) {
-//        flag = -1;
-//    }
-//
-//    if (flag != -1) {
-//        int part = 0;
-//        if (index < 32) {
-//        } else if (index < 64) {
-//            ++part;
-//        } else if (index < 96) {
-//            part += 2;
-//        } else {
-//            part += 3;
-//        }
-//        index = index - size_of_int * part;
-//        unsigned int mask = 1 << index;
-//        result = decimal.bits[part] & mask ? 1 : 0;
-//    } else {
-//        result = flag;
-//    }
-//
-//    return result;
+    //    int result = 0;
+    //    int size_of_int = 32;
+    //
+    //    if (index < 0 || index > 127 || &decimal == NULL) {
+    //        flag = -1;
+    //    }
+    //
+    //    if (flag != -1) {
+    //        int part = 0;
+    //        if (index < 32) {
+    //        } else if (index < 64) {
+    //            ++part;
+    //        } else if (index < 96) {
+    //            part += 2;
+    //        } else {
+    //            part += 3;
+    //        }
+    //        index = index - size_of_int * part;
+    //        unsigned int mask = 1 << index;
+    //        result = decimal.bits[part] & mask ? 1 : 0;
+    //    } else {
+    //        result = flag;
+    //    }
+    //
+    //    return result;
 }
 
 int set_bit(s21_decimal* decimal, int index, int value) {
@@ -84,6 +95,7 @@ void set_scale(s21_decimal* decimal, int scale) {  // scale от 0 до 28, bit[
 }
 
 int get_sign(s21_decimal value) {
+    // return (int)(value.bits[3] & CHECK_MINUS) >> 31;
     int index = 127;
     return get_bit(value, index);
 }
@@ -110,7 +122,7 @@ int s21_is_decimal_correct(s21_decimal decimal) {
     int status_code = TRUE;
     for (int i = 64; i < 95; i++) {
         int serve = get_bit(decimal, i);
-        if (((i >= 64 && i <= 79) || i >= 88 ) && serve == 1) {
+        if (((i >= 64 && i <= 79) || i >= 88) && serve == 1) {
             status_code = FALSE;
             break;
         }
