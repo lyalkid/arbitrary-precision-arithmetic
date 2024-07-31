@@ -12,6 +12,22 @@ void get_add_binary(const int value1[], const int value2[], int coef[], int size
     add_normalize(coef, size, base);
 }
 
+void subtract(int value1[], int value2[], int result[], int size){
+    int borrow = 0;
+    for (int i = 0; i < size; i++) {
+        int diff = value1[i] - value2[i] - borrow;
+        if (diff < 0) {
+            diff += 10;
+            borrow = 1;
+        } else {
+            borrow = 0;
+        }
+        result[i] = diff;
+    }
+
+}
+
+
 /*
     скалдывает два числа, которые представлены в виде массива в 10 системе счисления
 */
@@ -87,9 +103,8 @@ int get_real_len_of_number(int a[], int size) {
     return size - count;
 }
 
-
 /**
- * 
+ *
  * @param a первое число
  * @param b второе число
  * @param result результат
@@ -117,6 +132,8 @@ void multiply(int a[], int b[], int result[], int size, int base) {
     }
 }
 
+
+//TODO сделать так чтобы можно было передавать неограниченное количество массивов и инициализировать их все
 void init_array(int a[], int n) {
     for (int i = 0; i < n; i++) {
         a[i] = 0;
@@ -133,7 +150,7 @@ void init_array_for_power(int a[], int n) {
 // инициализирует число 10 в 2 сс в виде массива 01010..0000
 void init_ten_in_binary(int a[], int n) {
     for (int i = 0; i < n; i++) {
-        if(i == 1 || i == 3) {
+        if (i == 1 || i == 3) {
             a[i] = 1;
             continue;
         }
@@ -167,7 +184,8 @@ void from_binary_to_10(int bin_arr[], int result[], int size_bin_arr, int size_r
 
 /**
  *
- * @param a - число которое хранит в себе изначально 1, то есть [1, 0, 0, ..., 0], в нем будет записан результат;
+ * @param a - число которое хранит в себе изначально 1, то есть [1, 0, 0, ..., 0], в нем будет записан
+ * результат;
  * @param a_size - размер массива;
  * @param exp - степень, в которую мы хотим умножить число;
  * @param digit - само число в 10 сс;
@@ -207,15 +225,14 @@ void output_array(int arr[], int size) {
 };
 
 void output_reversed_array(int arr[], int size) {
-    int i ;
+    int i;
     int check;
     int len = get_real_len_of_number(arr, size);
 
-    for (i = (len != 0)*(len - 1); len != 0 && i > 0; i--) {
+    for (i = (len != 0) * (len - 1); len != 0 && i > 0; i--) {
         check = arr[i];
         printf("%d", check);
     }
     check = arr[i];
     printf("%d\n", check);
 };
-
