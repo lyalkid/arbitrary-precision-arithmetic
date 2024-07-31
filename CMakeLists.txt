@@ -5,14 +5,11 @@ set(CMAKE_C_STANDARD 11)
 
 add_executable(depimal
         main.c
-        s21_add.c
-        s21_decimal_utils.c
-        s21_normalize_scale.c
-        arithmetic_helpers.c
-        s21_banking_round.c
-        s21_equalizers.c
-        my_equalizers.c
-        s21_is_decimal_correct.c
+        s21_arithmetic/s21_add.c
+        other_funcs/s21_banking_round.c
+        other_funcs/s21_decimal_utils.c
+        other_funcs/s21_normalize_scale.c
+        other_funcs/arithmetic_helpers.c
         #        arithmetic_test/5x_test_s21_add.c
         #        arithmetic_test/100x_test_s21_add.c
 #        arithmetic_test/5x_test_s21_add.c

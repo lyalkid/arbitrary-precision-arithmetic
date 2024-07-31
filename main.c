@@ -4,14 +4,18 @@
 #include "inc/s21_add.h"
 #include "inc/s21_decimal.h"
 int main() {
-     s21_decimal value1 = {{0b00000000000000000000000001011111, 0b00000000000000000000000000000000,
-                            0b00000000000000000000000000000000, (11 << 16)}};
-     s21_decimal value2 = {{0b00000000000000000000000000000001, 0b00000000000000000000000000000000,
-                            0b00000000000000000000000000000000, (12 << 16)}};
+    int size = 7;
+    int value1[] = {0, 0, 0, 0, 1, 0, 0};
+    output_reversed_array(value1, size);
+    printf("-\n");
+    int value2[] = {9, 9, 9, 4, 0, 0, 0};
+    output_reversed_array(value2, size);
+    printf("=\n");
+    int result[size];
+    init_array(result, size);
 
-     s21_decimal result = {};
+    subtract(value1, value2, result, size);
 
-     unsigned int res = s21_add(value1, value2, &result);
-
+    output_reversed_array(result, size);
 
 }
