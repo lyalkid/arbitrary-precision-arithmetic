@@ -12,10 +12,13 @@ void get_add_binary(const int value1[], const int value2[], int coef[], int size
     add_normalize(coef, size, base);
 }
 
-void subtract(int value1[], int value2[], int result[], int size){
+void subtract(int value1[], int value2[], int result[], int size) {
+    init_array(result, size);
     int borrow = 0;
     for (int i = 0; i < size; i++) {
-        int diff = value1[i] - value2[i] - borrow;
+        int a = value1[i];
+        int b = value2[i];
+        int diff = a - b - borrow;  // value1[i] - value2[i] - borrow;
         if (diff < 0) {
             diff += 10;
             borrow = 1;
@@ -24,9 +27,7 @@ void subtract(int value1[], int value2[], int result[], int size){
         }
         result[i] = diff;
     }
-
 }
-
 
 /*
     скалдывает два числа, которые представлены в виде массива в 10 системе счисления
@@ -88,7 +89,7 @@ void simple_multiply(int a[], int b, int result[], int size_a,
 // -------------------------------------------
 
 // получает длину числа без ведущих нулей
-int get_real_len_of_number(int a[], int size) {
+int get_real_len_of_number(const int a[], int size) {
     int i = 0;
     int len = 0;
     int count = 0;
@@ -132,8 +133,7 @@ void multiply(int a[], int b[], int result[], int size, int base) {
     }
 }
 
-
-//TODO сделать так чтобы можно было передавать неограниченное количество массивов и инициализировать их все
+// TODO сделать так чтобы можно было передавать неограниченное количество массивов и инициализировать их все
 void init_array(int a[], int n) {
     for (int i = 0; i < n; i++) {
         a[i] = 0;
@@ -194,6 +194,7 @@ void from_binary_to_10(int bin_arr[], int result[], int size_bin_arr, int size_r
 void my_power(int a[], int a_size, int exp, int digit, int base) {
     // int save_a[a_size];
     // copy_array(a, save_a, a_size);
+    init_array_for_power(a, a_size);
     int tmp[a_size];
     while (exp != 0) {
         init_array(tmp, a_size);
@@ -204,15 +205,16 @@ void my_power(int a[], int a_size, int exp, int digit, int base) {
     }
 }
 
-void copy_array(int src[], int dest[], int size) {
-    int *pA = src;
-    int *pB = dest;
+void copy_array(int from[], int to[], int size) {
+    int *pA = from;
+    int *pB = to;
     for (int i = 0; i < size; i++) {
         *(pB + i) = *(pA + i);
     }
 }
 
-void output_array(int arr[], int size) {
+// TODO тут тоже убрать дублирование кода
+void output_array(const int arr[], int size) {
     int i;
     int check;
     int len = get_real_len_of_number(arr, size);
@@ -220,19 +222,23 @@ void output_array(int arr[], int size) {
         check = arr[i];
         printf("%d", check);
     }
-    check = arr[i];
-    printf("%d\n", check);
+
+    if (len != 0) {
+        check = arr[i];
+        printf("%d\n", check);
+    }
 };
 
-void output_reversed_array(int arr[], int size) {
+void output_reversed_array(const int arr[], int size) {
     int i;
     int check;
-    int len = get_real_len_of_number(arr, size);
-
+    int len = get_real_len_of_number(arr, size);  // size;
     for (i = (len != 0) * (len - 1); len != 0 && i > 0; i--) {
         check = arr[i];
         printf("%d", check);
     }
-    check = arr[i];
-    printf("%d\n", check);
+    if (len != 0) {
+        check = arr[i];
+        printf("%d\n", check);
+    }
 };

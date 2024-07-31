@@ -12,46 +12,80 @@ void from_decimal_to_array(s21_decimal decimal, int array[], int size) {
 
 void from_big_decimal_to_array(s21_big_decimal bigDecimal, int array[], int size) {
     init_array(array, size);
+    int t;
     for (int i = 0; i < 224; i++) {
-        array[i] = get_bit_from_big_decimal(bigDecimal, i);
+        t = get_bit_from_big_decimal(bigDecimal, i);
+        array[i] = t;
     }
 }
 
-int get_bit_from_big_decimal(s21_big_decimal bigDecimal, int index){
-    unsigned int mask = 1u << (index % 32);
-    return (int)(bigDecimal.bits[index / 32] & mask);
+int get_bit_from_big_decimal(s21_big_decimal bigDecimal, int index) {
+    int flag = 0;
+    int result = 0;
+    int size_of_int = 32;
+
+    if (index < 0 || index > 256 || &bigDecimal == NULL) {
+        flag = -1;
+    }
+
+    if (flag != -1) {
+        int part = 0;
+        if (index < 32) {
+        } else if (index < 64) {
+            ++part;
+        } else if (index < 96) {
+            part += 2;
+        } else if (index < 128) {
+            part += 3;
+        } else if (index < 160) {
+            part += 4;
+        } else if (index < 192) {
+            part += 5;
+        } else if (index < 224) {
+            part += 6;
+        } else if (index < 256) {
+            part += 7;
+        }
+        index = index - size_of_int * part;
+        unsigned int mask = 1 << index;
+        result = bigDecimal.bits[part] & mask ? 1 : 0;
+    } else {
+        result = flag;
+    }
+
+    return result;
 }
 
 int get_bit(s21_decimal decimal, int index) {
-    unsigned int mask = 1u << (index % 32);
-    return (int)(decimal.bits[index / 32] & mask);
+    // unsigned int mask = 1u << (index % 32);
+    // return (int)(decimal.bits[index / 32] & mask);
 
-    //    int flag = 0;
-    //    int result = 0;
-    //    int size_of_int = 32;
-    //
-    //    if (index < 0 || index > 127 || &decimal == NULL) {
-    //        flag = -1;
-    //    }
-    //
-    //    if (flag != -1) {
-    //        int part = 0;
-    //        if (index < 32) {
-    //        } else if (index < 64) {
-    //            ++part;
-    //        } else if (index < 96) {
-    //            part += 2;
-    //        } else {
-    //            part += 3;
-    //        }
-    //        index = index - size_of_int * part;
-    //        unsigned int mask = 1 << index;
-    //        result = decimal.bits[part] & mask ? 1 : 0;
-    //    } else {
-    //        result = flag;
-    //    }
-    //
-    //    return result;
+    int flag = 0;
+    int result = 0;
+    int size_of_int = 32;
+
+    if (index < 0 || index > 127 || &decimal == NULL) {
+        flag = -1;
+    }
+
+    if (flag != -1) {
+        int part = 0;
+        if (index < 32) {
+        } else if (index < 64) {
+            ++part;
+        } else if (index < 96) {
+            part += 2;
+        } else {
+            part += 3;
+        }
+        index = index - size_of_int * part;
+        unsigned int mask = 1 << index;
+        result = decimal.bits[part] & mask ? 1 : 0;
+    } else {
+        result = flag;
+    }
+
+    return result;
 }
 
 int set_bit(s21_decimal* decimal, int index, int value) {
@@ -106,11 +140,12 @@ void set_sign(s21_decimal* decimal, int sign) {
 }
 
 void decimal_to_big_decimal(s21_decimal decimal, s21_big_decimal* bigDecimal) {
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 7; i++) {
         if (i < 3) {
             bigDecimal->bits[i] = decimal.bits[i];
             continue;
         } else if (i == 3) {
+            bigDecimal->bits[3] = 0;
             bigDecimal->bits[7] = decimal.bits[i];
         } else {
             bigDecimal->bits[i] = 0;
