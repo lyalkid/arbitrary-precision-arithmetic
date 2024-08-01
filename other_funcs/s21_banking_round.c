@@ -54,28 +54,47 @@ void get_integral_and_fraction(int integral[], int fraction[], int size_array, i
     output_reversed_array(integral, size_array);
 
     delete_not_necessary_zero(tmp_base_ten, size_array);
-    copy_array(tmp_base_ten, integral, size_array);
+    copy_array(tmp_base_ten, integral, size_array, size_array);
     output_reversed_array(integral, size_array);
 
     //   ten_to_two_base(integral, );
 }
 
-void ten_to_two_base(int ten_base[], int binary_base[], int size_array) {
-
-    int tmp[size_array];
-
+void ten_to_two_base(int ten_base[], int binary_base[], int size_array, int size_binary) {
+    int two_powers[size_array];
+    int size_of_len_two_powers = 256;
+    int len_of_two_powers[size_of_len_two_powers];
+    int copy_ten_base[size_of_len_two_powers];
+    copy_array(ten_base, copy_ten_base, size_array, size_of_len_two_powers);
+    init_array(len_of_two_powers, size_of_len_two_powers);
     int start = size_array;
+    int status_code = -1;
+
+    // в этом цикле мы выясняем с какой степени двойки нам начинать
+    for (int i = 0; i < 100; i++) {  // до 100 потому что максимальное число децимала 2^96, больше мне не
+                                     // нужно, 100 взято с запасом
+
+        my_power(len_of_two_powers, size_of_len_two_powers, i, 2, 10);
+        status_code = compare(copy_ten_base, len_of_two_powers, size_of_len_two_powers);
+        if (status_code == LESS) {
+            start = i - 1;
+            break;
+        } else if (status_code == EQUALS) {
+            start = i;
+            break;
+        }
+    }
+
     for (int i = start; i >= 0 && !(is_zero(ten_base, size_array)); i--) {
-        my_power(tmp, size_array, i, 2, 10);
-        int status_code = compare(ten_base, tmp, size_array);
+        my_power(two_powers, size_array, i, 2, 10);
+        int sub_res[size_array];
+        status_code = compare(ten_base, two_powers, size_array);
         if (status_code == LESS) {
             continue;
-        } else if (status_code == GREATER) {
-            int sub_res[size_array];
-            subtract(ten_base, tmp, sub_res, size_array);
+        } else if (status_code == GREATER || status_code == EQUALS) {
+            subtract(ten_base, two_powers, sub_res, size_array);
             binary_base[i] = 1;
-            copy_array(sub_res, ten_base, size_array);
-        } else {
+            copy_array(sub_res, ten_base, size_array, size_array);
         }
     }
 }

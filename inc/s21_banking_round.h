@@ -11,6 +11,6 @@ void delete_not_necessary_zero(int array[], int size);
 
 int compare(const int v1[], const int v2[], int size);
 
-void ten_to_two_base(int ten_base[], int binary_base[], int size_array);
+void ten_to_two_base(int ten_base[], int binary_base[], int size_array, int size_res);
 int is_zero(int array[], int size_array);
 #endif  // S21_BANKING_ROUND_H_

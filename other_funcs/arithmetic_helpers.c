@@ -12,10 +12,13 @@ void get_add_binary(const int value1[], const int value2[], int coef[], int size
     add_normalize(coef, size, base);
 }
 
+// вычитание происходит из большего по модулю
 void subtract(int value1[], int value2[], int result[], int size) {
     init_array(result, size);
     int borrow = 0;
-    for (int i = 0; i < size; i++) {
+    int border =
+        get_real_len_of_number(value1, size) == size ? size : get_real_len_of_number(value1, size) + 1;
+    for (int i = 0; i < border; i++) {
         int a = value1[i];
         int b = value2[i];
         int diff = a - b - borrow;  // value1[i] - value2[i] - borrow;
@@ -200,16 +203,21 @@ void my_power(int a[], int a_size, int exp, int digit, int base) {
         init_array(tmp, a_size);
         // multiply(a, save_a, tmp, a_size);
         simple_multiply(a, digit, tmp, a_size, base);
-        copy_array(tmp, a, a_size);
+        copy_array(tmp, a, a_size, a_size);
         exp--;
     }
 }
 
-void copy_array(int from[], int to[], int size) {
+void copy_array(int from[], int to[], int size_from, int size_to) {
     int *pA = from;
     int *pB = to;
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < size_from; i++) {
         *(pB + i) = *(pA + i);
+    }
+    if (size_to > size_from) {
+        for (int i = size_from; i < size_to; i++) {
+            to[i] = 0;
+        }
     }
 }
 

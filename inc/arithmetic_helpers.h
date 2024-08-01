@@ -24,7 +24,7 @@ void multiply(int a[], int b[], int result[], int size, int base);
 
 void print_binary(const unsigned int number);
 
-void copy_array(int from[], int to[], int size);
+void copy_array(int from[], int to[], int size_from, int size_to);
 
 void my_power(int a[], int a_size, int exp, int digit, int base);
 

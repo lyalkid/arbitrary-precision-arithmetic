@@ -39,10 +39,10 @@ void normalize_arrays(int value1[], int value2[], int size, int* scale1, int* sc
     // смотрим какой массив  нужно домножить на 10^resize_scale, чтобы был одинаковый scale
     if (min_scale == *scale1) {
         multiply(value1, ten, res1, size, 2);
-        copy_array(res1, value1, size);
+        copy_array(res1, value1, size, size);
     } else {
         multiply(value2, ten, res2, size, 2);
-        copy_array(res2, value2, size);
+        copy_array(res2, value2, size, size);
     }
 }
 
