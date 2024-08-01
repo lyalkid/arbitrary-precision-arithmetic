@@ -1,5 +1,6 @@
 #include "../inc/arithmetic_helpers.h"
 
+#include <stdarg.h>
 #include <stdio.h>
 /*
     скалдывает два числа, которые представлены в виде массива в 2 системе счисления
@@ -142,6 +143,22 @@ void init_array(int a[], int n) {
         a[i] = 0;
     }
 }
+
+// void init_arrays(int num_arrays, ...) {
+//     va_list args;
+//     va_start(args, num_arrays); // Инициализация списка аргументов
+//
+//     for (int i = 0; i < num_arrays; i++) {
+//         int *array = va_arg(args, int*); // Получаем указатель на массив
+//         int size = va_arg(args, int); // Получаем размер массива
+//
+//         for (int j = 0; j < size; j++) {
+//             array[j] = 0; // Заполняем массив нулями
+//         }
+//     }
+//
+//     va_end(args); // Завершаем работу со списком аргументов
+// }
 
 void init_array_for_power(int a[], int n) {
     for (int i = 0; i < n; i++) {

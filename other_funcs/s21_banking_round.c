@@ -3,24 +3,39 @@
 #include "../inc/arithmetic_helpers.h"
 #include "../inc/s21_decimal.h"
 
-void banking_round(s21_big_decimal bigDecimal) {
+s21_decimal banking_round(s21_big_decimal bigDecimal) {
     int size_array = DEC_ARRAY;
     int exp = (int)((bigDecimal.bits[7] & CHECK_SCALE) >> 16);
     int sign = (int)((bigDecimal.bits[7] & CHECK_MINUS) >> 31);
 
+    int integral[size_array];
+    int fraction[size_array];
     int binary_integral[size_array];
     int binary_fraction[size_array];
 
-    get_integral_and_fraction(binary_integral, binary_fraction, size_array, exp, bigDecimal);
+    get_integral_and_fraction(integral, fraction, size_array, exp, bigDecimal);
     output_reversed_array(binary_integral, size_array);
     output_reversed_array(binary_fraction, size_array);
+    int last = integral[0];
 
+    ten_to_two_base(integral, binary_integral, size_array, size_array);
     //    int binary_view[size_array];
     //    init_array(binary_view, size_array);
     //    int base_ten_digit[size_array];
     //
     //    from_binary_to_10();
 }
+
+void banking_logic(int integral[], int fraction[], int size_array) {
+    int frac_len = get_real_len_of_number(fraction, size_array);
+    int is_all_zero = TRUE;
+    if(frac_len != 1) {
+        for(int i = frac_len-1; i >= 0; i++) {
+
+        }
+    }
+}
+
 
 // получает отдельно дробь и целую часть
 void get_integral_and_fraction(int integral[], int fraction[], int size_array, int exp,

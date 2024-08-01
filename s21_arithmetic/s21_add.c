@@ -32,9 +32,8 @@ int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
     from_decimal_to_array(value_1, mantissa1, size);
     from_decimal_to_array(value_2, mantissa2, size);
 
-    int sum_of_signs =
-        get_sign(value_1) +
-        get_sign(value_2);  // если 0 или 2 , то делаем сложение, а потом ставим знак, если 1, то
+    // если 0 или 2 , то делаем сложение, а потом ставим знак, если 1, то разность
+    int sum_of_signs = get_sign(value_1) + get_sign(value_2);
 
     if (sum_of_signs != 1) {
         normalize_arrays(mantissa1, mantissa2, size, &exp1, &exp2);

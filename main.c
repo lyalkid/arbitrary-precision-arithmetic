@@ -46,31 +46,31 @@ int main() {
     //    int value2[] = {2, 2, 0, 0, 1, 0, 0};
     //    int res = compare(value1, value2, size);
      */
-   /* проверка перевода 10 -> 2 -> 10
-    int size = 256;
-    int test[size];
-    init_array(test, size);
-    test[0] = 2;
-    test[1] = 1;
-    test[2] = 5;
-    test[3] = 0;
-    test[4] = 0;
+    /* проверка перевода 10 -> 2 -> 10
+     int size = 256;
+     int test[size];
+     init_array(test, size);
+     test[0] = 2;
+     test[1] = 1;
+     test[2] = 5;
+     test[3] = 0;
+     test[4] = 0;
 
-    int size_res = 256;
-    int result[size_res];
-    init_array(result, size_res);
-    printf("correct: ");
-    output_reversed_array(test, size);
+     int size_res = 256;
+     int result[size_res];
+     init_array(result, size_res);
+     printf("correct: ");
+     output_reversed_array(test, size);
 
-    ten_to_two_base(test, result, size, size_res);
-    printf("10 -> 2:\n");
-    output_reversed_array(result, size_res);
-     printf("length: %d\n", get_real_len_of_number(result, size));
+     ten_to_two_base(test, result, size, size_res);
+     printf("10 -> 2:\n");
+     output_reversed_array(result, size_res);
+      printf("length: %d\n", get_real_len_of_number(result, size));
 
-    printf("2 -> 10:\n");
-    init_array(test, size);
-    from_binary_to_10(result, test, size_res, size);
-    output_reversed_array(test, size);
-    //  from_binary_to_10(test, result, size, size);
-   */
+     printf("2 -> 10:\n");
+     init_array(test, size);
+     from_binary_to_10(result, test, size_res, size);
+     output_reversed_array(test, size);
+     //  from_binary_to_10(test, result, size, size);
+    */
 }
