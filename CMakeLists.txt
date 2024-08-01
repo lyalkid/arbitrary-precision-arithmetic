@@ -10,6 +10,9 @@ add_executable(depimal
         other_funcs/s21_decimal_utils.c
         other_funcs/s21_normalize_scale.c
         other_funcs/arithmetic_helpers.c
+        a_tests/arithmetic_test/5x_test_s21_add.c
+        a_tests/test.h
+        a_tests/test.c
         #        arithmetic_test/5x_test_s21_add.c
         #        arithmetic_test/100x_test_s21_add.c
 #        arithmetic_test/5x_test_s21_add.c

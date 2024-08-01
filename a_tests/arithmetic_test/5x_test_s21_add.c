@@ -1,6 +1,8 @@
 #include <check.h>
 
-#include "../inc/s21_add.h"
+#include "../../inc/s21_add.h"
+#include "../../inc/s21_decimal.h"
+#include "../test.h"
 START_TEST(invalid_dec_s21_add_1) {
     // ссылка на результат - NULL
     s21_decimal dec_1 = {{0x1, 0x0, 0x0, 0x0}};
