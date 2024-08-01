@@ -1,41 +1,52 @@
-CFLAGS = -c #-Wall -Werror -Wextra -std=c11
-LDFLAGS =  -std=c11 #-Wall -Werror -Wextra
-SOURCE = $(wildcard */*.c *.c)
-SOURCE1 = $(wildcard *.c)
-
-OBJECTS = $(patsubst %.c,%.o, $(SOURCE1))
+CC=gcc
+CFLAGS=-c #-Wall -Wextra -Werror -std=c11
+LDFLAGS =-Wall -Werror -Wextra -std=c11
+OUT=a.out
+ENTRY= other_funcs/*.c s21_arithmetic/*.c
+SOURCE = $(wildcard */*.c )
 TESTS_SOURCE = a_tests/arithmetic_test/5x_test_s21_add.c a_tests/*.c
-UNAME_S := $(shell uname -s)
 
-ifeq ($(UNAME_S),Linux)
-  	OPEN_CMD = xdg-open
-	ADD_LIB = -lcheck -lsubunit -lm -lrt -lpthread -D_GNU_SOURCE
+ifeq ($(shell uname),Darwin)
+SHELL:=/bin/zsh
+CHECK_FLAGS=-lcheck
+else
+MAKEFLAGS+=--no-print-directory
+CHECK_FLAGS=-lcheck -lsubunit -lm -lrt -lpthread -D_GNU_SOURCE
 endif
-ifeq ($(UNAME_S),Darwin)
-	OPEN_CMD = open
-	ADD_LIB =
-endif
+
 
 
 
 all: s21_decimal.a
 
 s21_decimal.a: ${SOURCE}
-	@gcc $(CFLAGS) $(ADD_LIB) $(SOURCE)
+	@gcc $(CFLAGS) $(CHECK_FLAGS) $(SOURCE)
 	@ar rcs s21_decimal.a arithmetic_helpers.o s21_add.o s21_banking_round.o s21_decimal_utils.o s21_normalize_scale.o
 	@ranlib s21_decimal.a
-	@-rm -rf *.o
+	@rm -rf *.o
 
 test: s21_decimal.a
-	@gcc $(LDFLAGS) -o test $(TESTS_SOURCE) s21_decimal.a $(ADD_LIB) -lcheck
-	@./test
+	@gcc $(LDFLAGS) -o s21_test $(TESTS_SOURCE) s21_decimal.a $(CHECK_FLAGS)
+	@./s21_test
 
 
 clean_lib:
 	rm -rf s21_decimal.a
 
-clean:clean_lib clean_test
-	rm -rf *.o
-	#clear
+clean_gcov: clean_lib
+	rm -rf *.gcno *.gcda s21_test s21_test.info
+	rm -rf report
+
+
+
+clean: clean_lib clean_test
+
 clean_test:
 	rm -rf test
+
+gcov_report:s21_decimal.a
+	@gcc --coverage ${ENTRY} ${TESTS_SOURCE} -o s21_test $(CHECK_FLAGS) -lcheck
+	./s21_test
+	@lcov -t "s21_test" -o s21_test.info -c -d .
+	@genhtml -o report s21_test.info
+	open ./report/index.html
