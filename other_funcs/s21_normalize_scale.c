@@ -2,7 +2,7 @@
 
 #include "../inc/arithmetic_helpers.h"
 #include "../inc/s21_decimal.h"
-#include "../inc/s21_decimal_utils.h"
+#include "../inc/s21_subfuncs.h"
 
 void normalization(s21_decimal decimal_1, s21_decimal decimal_2) {
     int scale1 = get_scale(decimal_1), scale2 = get_scale(decimal_2);
@@ -35,7 +35,7 @@ void normalize_arrays(int value1[], int value2[], int size, int* scale1, int* sc
     int ten[size];
     init_array_for_power(ten, size);
     my_power(ten, size, resize_scale, 10, 2);
-
+    *scale1 = *scale2 = max_scale;
     // смотрим какой массив  нужно домножить на 10^resize_scale, чтобы был одинаковый scale
     if (min_scale == *scale1) {
         multiply(value1, ten, res1, size, 2);

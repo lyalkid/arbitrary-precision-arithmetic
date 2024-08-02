@@ -4,8 +4,8 @@
 #include <stdlib.h>
 
 #include "s21_decimal.h"
-#include "s21_decimal_utils.h"
 #include "s21_normalize_scale.h"
+#include "s21_subfuncs.h"
 
 /*
 0 — OK;

@@ -21,9 +21,9 @@ all: s21_decimal.a
 
 s21_decimal.a: ${SOURCE}
 	@gcc $(CFLAGS) $(CHECK_FLAGS) $(SOURCE)
-	@ar rcs s21_decimal.a arithmetic_helpers.o s21_add.o s21_banking_round.o s21_decimal_utils.o s21_normalize_scale.o
+	@ar rcs s21_decimal.a arithmetic_helpers.o s21_add.o  s21_subfuncs.o s21_normalize_scale.o
 	@ranlib s21_decimal.a
-	@rm -rf *.o
+
 
 test: s21_decimal.a
 	@gcc $(LDFLAGS) -o s21_test $(TESTS_SOURCE) s21_decimal.a $(CHECK_FLAGS)
@@ -40,9 +40,9 @@ clean_gcov: clean_lib
 
 
 clean: clean_lib clean_test
-
+	rm -rf *.o
 clean_test:
-	rm -rf test
+	rm -rf s21_test
 
 gcov_report:s21_decimal.a
 	@gcc --coverage ${ENTRY} ${TESTS_SOURCE} -o s21_test $(CHECK_FLAGS) -lcheck
@@ -50,3 +50,9 @@ gcov_report:s21_decimal.a
 	@lcov -t "s21_test" -o s21_test.info -c -d .
 	@genhtml -o report s21_test.info
 	open ./report/index.html
+
+style:
+	clang-format -i *.c */*.c  */*.h
+
+style-test:
+	clang-format -n *.c */*.c  */*.h

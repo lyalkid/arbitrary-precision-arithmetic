@@ -1,8 +1,8 @@
 #include <stdio.h>
 
 #include "inc/arithmetic_helpers.h"
+#include "inc/my_banking_round.h"
 #include "inc/s21_add.h"
-#include "inc/s21_banking_round.h"
 #include "inc/s21_decimal.h"
 int main() {
     /* пример работы с вычитанием из одного массива другого
@@ -33,12 +33,11 @@ int main() {
        output_reversed_array(array, size);
     */
 
-    //
-    // s21_decimal decimal = {0b11111111111111111111111111111111, 0b11111111111111111111111111111111,
-    // 0b11111111111111111111111111111111, (1 << 16)}; s21_big_decimal bigDecimal;
-    // decimal_to_big_decimal(decimal, &bigDecimal);
-    // banking_round(bigDecimal);
-    //
+    //    s21_decimal decimal = {0b11111111111111111111111111111111, 0b11111111111111111111111111111111,
+    //                           0b11111111111111111111111111111111, (5 << 16)};
+    //    s21_big_decimal bigDecimal;
+    //    decimal_to_big_decimal(decimal, &bigDecimal);
+    //    banking_round(bigDecimal);
 
     /* проверка функции сравнения двух массивов
     //    int size = 7;
@@ -73,4 +72,12 @@ int main() {
      output_reversed_array(test, size);
      //  from_binary_to_10(test, result, size, size);
     */
+    //    output_decimal_like_digit(S21_DECIMAL_MAX);
+    //    output_decimal_like_digit(S21_DECIMAL_MIN);
+
+    s21_decimal decimal1 = {123324, 0, 0, 1 << 16};
+    s21_decimal decimal2 = {6, 0, 0, 1 << 16};
+    s21_decimal res;
+    int code = s21_add(S21_DECIMAL_MAX, S21_DECIMAL_MAX, &res);
+    printf("%d\n", code);
 }

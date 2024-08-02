@@ -1,5 +1,5 @@
-#include "../inc/s21_decimal_utils.h"
-
+#include "../inc/s21_subfuncs.h"
+#include "../inc/s21_add.h"
 // size = DEC_ARRAY
 
 // TODO  исправить дублирование кода
@@ -119,7 +119,7 @@ int set_bit(s21_decimal* decimal, int index, int value) {
     return flag;
 }
 
-int get_scale(s21_decimal value) { return ((value.bits[3] >> 16) & 0b11111111); }
+int get_scale(s21_decimal value) { return ((value.bits[3] >> 16) & 0b0000000011111111); }
 
 void set_scale(s21_decimal* decimal, int scale) {  // scale от 0 до 28, bit[3] : от 16 до 23
     scale = scale << 16;
@@ -127,6 +127,14 @@ void set_scale(s21_decimal* decimal, int scale) {  // scale от 0 до 28, bit[
     decimal->bits[3] = scale;
     set_sign(decimal, sign);
 }
+
+void set_big_scale(s21_big_decimal * bigDecimal, int scale) {  // scale от 0 до 28, bit[3] : от 16 до 23
+    scale = scale << 16;
+    int sign = (int)((bigDecimal->bits[7] & CHECK_MINUS) >> 31);
+    bigDecimal->bits[7] = scale;
+    s21_set_sign_big(bigDecimal, sign);
+}
+
 
 int get_sign(s21_decimal value) {
     // return (int)(value.bits[3] & CHECK_MINUS) >> 31;
@@ -163,4 +171,109 @@ int s21_is_decimal_correct(s21_decimal decimal) {
         }
     }
     return status_code;
+}
+
+void s21_set_bit_big(s21_big_decimal* num, int bit, unsigned value) {
+    if (value) {
+        num->bits[bit / 32] |= (1 << (bit % 32));
+    } else {
+        num->bits[bit / 32] &= ~(1 << (bit % 32));
+    }
+}
+
+
+int s21_banking_round(s21_big_decimal* bigDecimal) {
+    int status_code = OK;
+    int remainder = 0;
+    while ((s21_overflow_check(bigDecimal) && s21_get_scale_big(*bigDecimal) > 0) || s21_get_scale_big(*bigDecimal) > 28) {
+        s21_div_10(bigDecimal, &remainder);
+    }
+    if (s21_overflow_check(bigDecimal)) status_code = 1;
+    if (!status_code && (remainder > 5 || (remainder == 5 && s21_get_bit_big(*bigDecimal, 0)))) {
+        for (int i = 0, temp = 1; i < 224; i++) {
+            int result_bit = s21_get_bit_big(*bigDecimal, i) + temp;
+            temp = result_bit / 2;
+            result_bit %= 2;
+            s21_set_bit_big(bigDecimal, i, result_bit);
+        }
+    }
+    if (s21_overflow_check(bigDecimal)) status_code = 1;
+    return status_code;
+}
+
+
+void s21_div_10(s21_big_decimal* bigDecimal, int* remainder){
+    int size = DEC_ARRAY;
+    int bin_decimal[size];
+    int ten_decimal[size];
+    from_big_decimal_to_array(*bigDecimal, bin_decimal, size);
+    from_binary_to_10(bin_decimal, ten_decimal, size, size);
+    int last = ten_decimal[0];
+    for(int i = 1; i < size; i++ ){
+        ten_decimal[i-1] = ten_decimal[i];
+    }
+    ten_to_two_base(ten_decimal, bin_decimal, size, size);
+    for(int i = 0; i< 224; i++){
+        s21_set_bit_big(bigDecimal, i, bin_decimal[i]);
+    }
+
+    *remainder = last;
+    if(s21_get_scale_big(*bigDecimal) > 0){
+        set_big_scale(bigDecimal, s21_get_scale_big(*bigDecimal) - 1);
+    }
+}
+
+
+int s21_overflow_check(s21_big_decimal* value) {
+    return value->bits[3] || value->bits[4] || value->bits[5] || value->bits[6];
+}
+int s21_get_scale_big(s21_big_decimal bigDecimal) { return (bigDecimal.bits[7] >> 16) & CHECK_SCALE; }
+
+
+int s21_big_decimal_to_decimal(s21_big_decimal src, s21_decimal* res) {
+    int status_code = OK;
+    if ((status_code = s21_overflow_check(&src)) && s21_get_scale_big(src) > 28) {
+        status_code = s21_banking_round(&src);
+    }
+    if (status_code == OK) {
+        for (int i = 0; i < 3; i++) {
+            res->bits[i] = src.bits[i];
+        }
+        res->bits[3] = src.bits[7];
+        set_scale(res, s21_get_scale_big(src));
+    }
+    return status_code;
+}
+
+void array_to_bigDecimal(int array[], int size, int sign, int exp, s21_big_decimal* bigDecimal) {
+    unsigned int serve = (sign << 31) + (exp << 16);
+    bigDecimal->bits[7] = serve;
+    for (int i = 0; i < 224; i++) {
+        s21_set_bit_big(bigDecimal, i, array[i]);
+    }
+}
+
+
+
+
+int is_zero_decimal(s21_decimal decimal) {
+    int flag = 0;
+    for (int i = 0; i < 4; i++) {
+        if (decimal.bits[i] != 0) {
+            flag = 1;
+            break;
+        }
+    }
+    return flag;
+}
+
+
+// 0 - possitive, 1 - negative
+void s21_set_sign_big(s21_big_decimal *num, unsigned value) {
+    s21_set_bit_big(num, 255, value);
+}
+
+// setters and getters for bit
+int s21_get_bit_big(s21_big_decimal value, int bit) {
+    return (value.bits[bit / 32] >> (bit % 32)) & 1;
 }

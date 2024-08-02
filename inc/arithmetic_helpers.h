@@ -2,6 +2,9 @@
 #define ARITHMETIC_HELPERS_H_
 #include <stdio.h>
 
+#include "s21_decimal.h"
+#include "s21_subfuncs.h"
+
 void get_add_binary(const int value1[], const int value2[], int coef[], int size);
 void get_add(int value1[], const int value2[], int size);
 
@@ -34,4 +37,16 @@ void from_binary_to_10(int bin_arr[], int result[], int size_bin_arr, int size_r
 
 void output_array(const int arr[], int size);
 void output_reversed_array(const int arr[], int size);
+
+void delete_not_necessary_zero(int array[], int size, int len_frac);
+
+int compare(const int v1[], const int v2[], int size);
+
+void ten_to_two_base(int ten_base[], int binary_base[], int size_array, int size_res);
+int is_zero(int array[], int size_array);
+
+void from_array_to_decimal(int array[], int size_array, int exp, int sign, s21_decimal* decimal);
+
+enum { EQUALS, GREATER, LESS };
+
 #endif  // ARITHMETIC_HELPERS_H_
