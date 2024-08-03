@@ -12,4 +12,5 @@ add_executable(depimal
         src/other_funcs/arithmetic_helpers.c
         src/other_funcs/s21_other_funcs.c
         src/a_tests/test.c
+        src/s21_arithmetic/s21_sub.c
 )
