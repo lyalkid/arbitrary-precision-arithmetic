@@ -290,18 +290,18 @@ int s21_get_scale_big(s21_big_decimal bigDecimal) {
 }
 
 int s21_big_decimal_to_decimal(s21_big_decimal src, s21_decimal* res) {
-    int status_code = OK;
-    if ((status_code = s21_overflow_check(&src)) && s21_get_scale_big(src) > 28) {
-        status_code = s21_banking_round(&src);
+    int owerflow_code = OK;
+    if ((owerflow_code = s21_overflow_check(&src)) && s21_get_scale_big(src) > 28) {
+        owerflow_code = s21_banking_round(&src);
     }
-    if (status_code == OK) {
+    if (owerflow_code == OK) {
         for (int i = 0; i < 3; i++) {
             res->bits[i] = src.bits[i];
         }
         res->bits[3] = src.bits[7];
         //set_scale(res, s21_get_scale_big(src));
     }
-    return status_code;
+    return owerflow_code;
 }
 
 void array_to_bigDecimal(int array[], int size, int sign, int exp, s21_big_decimal* bigDecimal) {

@@ -3,6 +3,7 @@
 #include <math.h>
 
 #include "../inc/arithmetic_helpers.h"
+#include "../inc/s21_other_funcs.h"
 #include "../inc/my_banking_round.h"
 #include  "../inc/s21_normalize_scale.h"
 
@@ -43,12 +44,14 @@ int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal* result) {
         // for (int i = 0; i < 8; i++) {
         //     print_binary(big_result.bits[i]);
         // }
-        status_code = s21_big_decimal_to_decimal(big_result, result);
+        int owerflow = s21_big_decimal_to_decimal(big_result, result);
+        if(owerflow) status_code = sign1 ? 2 : 1;
+        // int res_sign = sign1 == 0 ? 0:1;
+        // if(status_code == OK && res_sign == 1) { s21_negate(*result, result);}
     }
     // если разные знаки, то вызываем вычитание
     else {
-        // int s21_sub(s21_decimal value_1, s21_decimal value_2, s21_decimal *result);
-        // status_code = s21_sub();
+
     }
 
     return status_code;

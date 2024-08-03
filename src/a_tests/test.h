@@ -27,7 +27,7 @@ Suite *s21_add_cases30(void);
 Suite *s21_add_cases50(void);
 Suite *s21_add_cases100(void);
 Suite *s21_add_cases300(void);
-
+Suite *s21_add_cases500(void);
 
 
 Suite *s21_bank_round_suite(void);

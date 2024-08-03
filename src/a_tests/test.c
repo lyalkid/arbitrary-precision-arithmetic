@@ -3,12 +3,31 @@
 #include <stdlib.h>
 
 #include "../inc/s21_decimal.h"
+
+
+
 // int main(void) {
 //     int number_failed;
 //     SRunner *sr;
 //
 //     sr = srunner_create(NULL);
-//     srunner_add_suite(sr, s21_add_cases());
+//     srunner_add_suite(sr, s21_add_suite5());
+//     srunner_add_suite(sr, s21_add_suite10());
+//     srunner_add_suite(sr,  s21_add_cases30());
+//     srunner_add_suite(sr,  s21_add_cases50());
+//     srunner_add_suite(sr,  s21_add_cases100());
+//     srunner_add_suite(sr,  s21_add_cases300());
+//     srunner_add_suite(sr,  s21_add_cases500());
+//
+//
+//
+//     //                       s21_add_suite5(),
+//     //         s21_add_suite10(),
+//     //         s21_add_cases30(),
+//     //         s21_add_cases50(),
+//     //         s21_add_cases100(),
+//     //         s21_add_cases300(),
+//
 //
 //     srunner_set_fork_status(sr, CK_NOFORK);
 //     // Используем данный блок для вывода подробно про каждый тест с разбиением по
@@ -38,6 +57,8 @@ int main() {
         s21_add_cases50(),
         s21_add_cases100(),
         s21_add_cases300(),
+s21_add_cases500(),
+
                       //                   s21_sub_suite(),
                       //                   s21_shift_left_suite(),
                       //                   s21_normalize_suite(),
@@ -62,7 +83,7 @@ int main() {
 
     printf(
         "========= ALL: %d ========= SUCCESSED: %d ========= FAILED: %d "
-        "=========\n",
-        all, successed, failed);
+        "=========\n%.2f percents\n",
+        all, successed, failed, ((float)successed/all) * 100);
     return failed == 0 ? 0 : 1;
 }

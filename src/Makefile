@@ -23,7 +23,7 @@ all: s21_decimal.a
 
 s21_decimal.a: ${SOURCE}
 	@gcc $(CFLAGS) $(CHECK_FLAGS) $(SOURCE)
-	@ar rcs s21_decimal.a arithmetic_helpers.o s21_add.o  s21_subfuncs.o s21_normalize_scale.o
+	@ar rcs s21_decimal.a arithmetic_helpers.o s21_add.o  s21_subfuncs.o s21_normalize_scale.o s21_other_funcs.o
 	@ranlib s21_decimal.a
 
 
